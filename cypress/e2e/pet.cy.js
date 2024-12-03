@@ -1,5 +1,6 @@
 // Bibliotecas
 import pet from '../fixtures/pet.json'
+import petAlterado from '../fixtures/petAlterado.json'
 
 describe('CRUD da entidade PET', () => {
 
@@ -41,7 +42,35 @@ describe('CRUD da entidade PET', () => {
 
 
   // Put Pet
+  it('PUT Pet', () => {
+    cy.request({
+      method: 'PUT',
+      url: '/pet',
+      body: petAlterado
+    }).then(({ status, body }) => {
+      expect(status).to.eq(200)
+      expect(body.id).to.eq(petAlterado.id)
+      expect(body.name).to.eq(petAlterado.name)
+      expect(body.category.id).to.eq(petAlterado.category.id)
+      expect(body.category.name).to.eq(petAlterado.category.name)
+      expect(body.tags[0].id).to.eq(petAlterado.tags[0].id)
+      expect(body.tags[0].name).to.eq(petAlterado.tags[0].name)
+      expect(body.status).to.eq(petAlterado.status)
+    })
+
+  }) // termina PUT
 
   // Delete Pet
-
+  it('DELETE Pet', () => {
+    cy.request({
+      method: 'DELETE',
+      url: `/pet/${pet.id}`
+    }).then(({ status, body }) => {
+      expect(status).to.eq(200) // status code --> comunicação com a API
+      expect(body.code).to.eq(200) // process code --> processamento na API
+      expect(body.type).to.eq('unknown') // tipo desconhecido - padrão
+      expect(body.message).to.eq(`${pet.id}`) // código do animal que foi escolhido - mais moderno
+      expect(body.message).to.eq((pet.id).toString()) // similar à linha anterior
+    })
+  }) // termina DELETE
 }) // Termina a describe
