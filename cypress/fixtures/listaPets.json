@@ -1,0 +1,34 @@
+[
+    {
+        "id": 906898802,
+        "category": {
+            "id": 1,
+            "name": "dog"
+        },
+        "name": "Caramelo",
+        "photoUrls": [],
+        "tags": [
+            {
+                "id": 1,
+                "name": "vaccinated"
+            }
+        ],
+        "status": "available"
+    },
+    {
+        "id": 906898803,
+        "category": {
+            "id": 1,
+            "name": "dog"
+        },
+        "name": "Paçoca",
+        "photoUrls": [],
+        "tags": [
+            {
+                "id": 1,
+                "name": "vaccinated"
+            }
+        ],
+        "status": "available"
+    }
+]

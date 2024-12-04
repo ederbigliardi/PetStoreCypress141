@@ -1,6 +1,7 @@
 // Bibliotecas
 import pet from '../fixtures/pet.json'
 import petAlterado from '../fixtures/petAlterado.json'
+import listaPets from '../fixtures/listaPets.json'
 
 describe('CRUD da entidade PET', () => {
 
@@ -73,4 +74,24 @@ describe('CRUD da entidade PET', () => {
       expect(body.message).to.eq((pet.id).toString()) // similar à linha anterior
     })
   }) // termina DELETE
+
+  listaPets.forEach((element) => {
+    // Post Pet Data Driven
+    it(`POST Pet Data Driven - ${element.name}`, () => {
+      cy.request({
+        method: 'POST',
+        url: '/pet', // endpoint
+        body: element
+      }).then(({ status, body }) => {
+        expect(status).to.eq(200)
+        expect(body.id).to.eq(element.id)
+        expect(body.name).to.eq(element.name)
+        expect(body.category.id).to.eq(element.category.id)
+        expect(body.category.name).to.eq(element.category.name)
+        expect(body.tags[0].id).to.eq(element.tags[0].id)
+        expect(body.tags[0].name).to.eq(element.tags[0].name)
+        expect(body.status).to.eq(element.status)
+      })
+    }) // Termina POST Data Driven
+  }) // Termina o uso do ListaPets
 }) // Termina a describe
